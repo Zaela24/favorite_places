@@ -43,13 +43,17 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
             ),
             ElevatedButton.icon(
               onPressed: () {
+                final enteredTitle = _titleController.text;
+                if (enteredTitle.isEmpty) {
+                  return;
+                }
                 ref
                     .read(
                       userPlacesProvider.notifier,
                     )
                     .addPlace(
                       Place(
-                        title: _titleController.text,
+                        title: enteredTitle,
                       ),
                     );
                 Navigator.of(context).pop();
