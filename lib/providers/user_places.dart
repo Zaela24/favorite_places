@@ -5,7 +5,7 @@ class UserPlacesNotifier extends StateNotifier<List<Place>> {
   UserPlacesNotifier() : super(const []);
 
   void addPlace(Place place) {
-    state = [...state, place];
+    state = [place, ...state];
   }
 }
 
