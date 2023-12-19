@@ -1,4 +1,5 @@
 import 'package:favorite_places/models/place.dart';
+import 'package:favorite_places/screens/map.dart';
 import 'package:favorite_places/widgets/map_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
@@ -112,11 +113,21 @@ class _LocationInputState extends State<LocationInput> {
           children: [
             TextButton.icon(
               onPressed: _getCurrentLocation,
-              icon: const Icon(Icons.location_on),
+              icon: const Icon(Icons.location_pin),
               label: const Text('Get Current Location'),
             ),
             TextButton.icon(
-              onPressed: () {},
+              onPressed: () async {
+                final newLocation = await Navigator.of(context).push<LatLng>(
+                  MaterialPageRoute(
+                    builder: (ctx) => const MapScreen(),
+                  ),
+                );
+                getAddressWithLatLong(
+                  newLocation!.latitude,
+                  newLocation.longitude,
+                );
+              },
               icon: const Icon(Icons.map),
               label: const Text('Select on Map'),
             ),
