@@ -123,8 +123,13 @@ class _LocationInputState extends State<LocationInput> {
                     builder: (ctx) => const MapScreen(),
                   ),
                 );
+
+                if (newLocation == null) {
+                  return;
+                }
+
                 getAddressWithLatLong(
-                  newLocation!.latitude,
+                  newLocation.latitude,
                   newLocation.longitude,
                 );
               },
