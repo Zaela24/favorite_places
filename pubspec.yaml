@@ -39,6 +39,11 @@ dependencies:
   uuid: ^4.2.2
   flutter_riverpod: ^2.4.9
   image_picker: ^1.0.5
+  location: ^5.0.3
+  flutter_map: ^6.1.0
+  open_geocoder: ^0.0.1
+  latlong2: ^0.9.0
+  flutter_map_cancellable_tile_provider: ^2.0.0
 
 dev_dependencies:
   flutter_test:
