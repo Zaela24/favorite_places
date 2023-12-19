@@ -1,10 +1,9 @@
-import 'package:favorite_places/misc/tile_providers.dart';
 import 'package:favorite_places/models/place.dart';
+import 'package:favorite_places/widgets/map_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:open_geocoder/model/geo_address.dart';
 import 'package:open_geocoder/open_geocoder.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 class LocationInput extends StatefulWidget {
@@ -22,8 +21,6 @@ class LocationInput extends StatefulWidget {
 class _LocationInputState extends State<LocationInput> {
   PlaceLocation? _pickedLocation;
   bool _isGettingLocation = false;
-
-  final mapController = MapController();
 
   void _getCurrentLocation() async {
     Location location = Location();
@@ -76,12 +73,6 @@ class _LocationInputState extends State<LocationInput> {
   }
 
   @override
-  void dispose() {
-    mapController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     Widget previewContent = Text(
       'No location chosen',
@@ -96,28 +87,9 @@ class _LocationInputState extends State<LocationInput> {
     }
 
     if (_pickedLocation != null) {
-      previewContent = Stack(
-        children: [
-          FlutterMap(
-            mapController: mapController,
-            options: MapOptions(
-              initialCenter:
-                  LatLng(_pickedLocation!.lat, _pickedLocation!.long),
-              initialZoom: 16,
-            ),
-            children: [
-              openStreetMapTileLayer,
-              MarkerLayer(
-                markers: [
-                  Marker(
-                    point: LatLng(_pickedLocation!.lat, _pickedLocation!.long),
-                    child: const Icon(Icons.location_on),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+      previewContent = MapPreview(
+        location: LatLng(_pickedLocation!.lat, _pickedLocation!.long),
+        mapZoom: 16,
       );
     }
 
